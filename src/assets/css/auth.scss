@@ -1,0 +1,7 @@
+.auth-wrapper {
+  background: url('/auth-bg.png') no-repeat center center/cover;
+}
+
+.form-control {
+  @apply w-full rounded-md border bg-transparent px-5 py-3 text-base outline-none;
+}

@@ -226,6 +226,7 @@
     "pages",
     "redux",
     "styles",
-    "utils"
+    "utils",
+    "src/schemas"
   ]
 }

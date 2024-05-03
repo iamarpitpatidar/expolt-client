@@ -1,6 +1,7 @@
 import NextAuth, { type DefaultSession } from 'next-auth'
 import AuthConfig from './auth.config'
-// import { getLoggedInUser } from '@lib/actions'
+import { apiFetch, getDeployURl } from '@lib/utils'
+import { APIResponse } from '@lib/types'
 
 export type ExtendedUser = DefaultSession['user'] & {
   role: 'admin' | 'user'
@@ -15,22 +16,22 @@ declare module 'next-auth' {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
-    // async session({ token, session }) {
-    //   if (token.sub && session.user) {
-    //     session.user = {
-    //       ...session.user,
-    //       ...(token.user || {}),
-    //       token: token.sub,
-    //     }
-    //   }
-    //   return session
-    // },
-    // async jwt({ token }) {
-    //   if (!token.sub) return token
-    //
-    //   token.user = await getLoggedInUser(token.sub)
-    //   return token
-    // },
+    async session({ token, session }) {
+      if (!token.sub) {
+        throw new Error('No token found')
+      }
+
+      const appUrl = getDeployURl()
+      const response = await fetch(
+        `${appUrl}/api/auth/users/me?token=${token.sub}`,
+      ).then((res) => res.json())
+      session.user = {
+        ...session.user,
+        ...(response.data || {}),
+        token: token.sub,
+      }
+      return session
+    },
   },
   session: { strategy: 'jwt' },
   ...AuthConfig,

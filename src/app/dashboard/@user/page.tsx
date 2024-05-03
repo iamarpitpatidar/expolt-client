@@ -1,0 +1,96 @@
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from '@components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { ClockIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
+import { getApps } from '@lib/actions'
+
+import '@assets/css/dash.scss'
+
+export default async function UserDashboard() {
+  const apps = await getApps()
+
+  return (
+    <div className="bg-gray-200 p-6">
+      <div className="grid gap-2 grid-cols-2">
+        <div className="grid gap-2 md:grid-cols-2">
+          <div className="col-span-2">
+            <Card className="relative">
+              <CardContent className="p-8 dashboard-hero bg-blue-800">
+                <div className="absolute bottom-0 z-20">
+                  <Badge className="my-4" variant="secondary">
+                    Explore
+                  </Badge>
+                  <CardTitle className="text-white text-2xl my-4">
+                    Know latest about our apps
+                  </CardTitle>
+                  <CardDescription className="text-white text-sm mb-8">
+                    Know more at our website
+                  </CardDescription>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <Card className="p-8 text-gray-500">
+            <CardTitle className="font-bold text-lg mb-2">
+              30<sup>o</sup>
+            </CardTitle>
+            <Badge variant="secondary">Today</Badge>
+            <CardTitle className="text-sm py-2">Feels like rainy</CardTitle>
+            <CardDescription className="text-xs">
+              Apr 30, Tuesday
+            </CardDescription>
+          </Card>
+          <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
+            <ClockIcon className="h-14 w-14 mr-2" />
+            12:30 PM
+          </Card>
+        </div>
+        <div className="grid gap-2 md:grid-cols-2 h-screen overflow-scroll">
+          {apps.map((app) => (
+            <Card
+              key={app.id}
+              className="opacity-80"
+              style={{ backgroundColor: `${app.meta.background}` }}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <Badge
+                  variant="secondary"
+                  className="text-sm text-muted-foreground font-medium px-3 capitalize"
+                >
+                  {app.type}
+                </Badge>
+              </CardHeader>
+              <CardContent>
+                <CardTitle className="text-white py-4 text-2xl">
+                  {app.name}
+                </CardTitle>
+                <CardDescription className="text-white py-4 line-clamp-2">
+                  {app.description}
+                </CardDescription>
+                <div className="mt-8">
+                  <Link
+                    className="bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 mt-4"
+                    href={
+                      app.type === 'web'
+                        ? app.meta.redirectTo
+                        : `/dashboard/init-vm/${app.uuid}`
+                    }
+                    target="_blank"
+                  >
+                    Open Software
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function LoginPage() {
   return (
     <div className="flex justify-center min-h-screen bg-[#f7f8fa] p-6">
@@ -51,12 +53,12 @@ export default function LoginPage() {
               </label>
             </div>
             <div className="text-sm">
-              <a
+              <Link
                 className="font-medium text-indigo-600 hover:text-indigo-500"
                 href="#"
               >
                 Forgot Password
-              </a>
+              </Link>
             </div>
           </div>
           <div>

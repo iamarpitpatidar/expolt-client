@@ -5,7 +5,8 @@
       "@public": ["public"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@/*": ["src/*"]
     },
     "types": ["react", "node", "trusted-types"],
     "target": "esNext",
@@ -34,8 +35,5 @@
     "strictNullChecks": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": [
-    ".next",
-    "node_modules",
-  ]
+  "exclude": [".next", "node_modules"]
 }

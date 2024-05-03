@@ -10,7 +10,6 @@ export default async function DashboardLayout({
   admin: ReactNode
 }) {
   const session = await auth()
-
   return (
     <Fragment>
       <DashboardHeader />

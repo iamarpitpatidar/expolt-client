@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { SessionProvider } from 'next-auth/react'
 import { Earth, Link, LayoutGrid, Search } from 'lucide-react'
-import UserProfile from '@/app/dashboard/_components/UserProfile'
+import UserProfile from '@/app/(protected)/dashboard/_components/UserProfile'
 
 export default async function DashboardHeader() {
   const session = await auth()

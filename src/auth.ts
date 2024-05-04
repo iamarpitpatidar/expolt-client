@@ -1,7 +1,6 @@
 import NextAuth, { type DefaultSession } from 'next-auth'
 import AuthConfig from './auth.config'
-import { apiFetch, getDeployURl } from '@lib/utils'
-import { APIResponse } from '@lib/types'
+import { getDeployURl } from '@lib/utils'
 
 export type ExtendedUser = DefaultSession['user'] & {
   role: 'admin' | 'user'

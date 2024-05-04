@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+} from '@components/ui/dropdown-menu'
+import { Avatar, AvatarImage, AvatarFallback } from '@components/ui/avatar'
 import LogoutButton from '@components/auth/logout-button'
 import { useCurrentUser } from '@lib/hooks/use-current-user'
 

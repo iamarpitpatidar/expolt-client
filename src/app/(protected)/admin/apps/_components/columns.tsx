@@ -55,9 +55,22 @@ export const columns: ColumnDef<App>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate">
+          <span className="max-w-[600px] truncate">
             {row.getValue('description')}
           </span>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'uuid',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="UUID" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate">{row.getValue('uuid')}</span>
         </div>
       )
     },
@@ -89,7 +102,7 @@ export const columns: ColumnDef<App>[] = [
     ),
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === String(row.getValue('status')),
+        (status) => status.value === row.getValue('status'),
       )
 
       if (!status) {

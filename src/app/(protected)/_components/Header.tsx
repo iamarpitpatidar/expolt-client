@@ -1,14 +1,14 @@
 import { auth } from '@/auth'
 import { SessionProvider } from 'next-auth/react'
 import { Earth, Link, LayoutGrid, Search } from 'lucide-react'
-import UserProfile from '@/app/(protected)/dashboard/_components/UserProfile'
+import UserProfile from './UserProfile'
 
 export default async function DashboardHeader() {
   const session = await auth()
 
   return (
     <SessionProvider session={session}>
-      <header className="grid grid-cols-3 py-4 px-6">
+      <header className="grid grid-cols-3 py-4 px-6 border-b">
         <div className="grid grid-cols-6 divide-x col-span-2">
           <div className="font-bold tracking-wide text-lg flex items-center">
             {process.env.NEXT_PUBLIC_APP_NAME}

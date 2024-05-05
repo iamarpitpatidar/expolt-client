@@ -1,6 +1,8 @@
 'use client'
 
-import { AppWindow, Cog, LogOut, User, Users } from 'lucide-react'
+import { Fragment } from 'react'
+import Link from 'next/link'
+import { AppWindow, Cog, Dock, LogOut, User, Users } from 'lucide-react'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +15,6 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from '@components/ui/avatar'
 import LogoutButton from '@components/auth/logout-button'
 import { useCurrentUser } from '@lib/hooks/use-current-user'
-import Link from 'next/link'
 
 export default function UserProfile() {
   const user = useCurrentUser()
@@ -32,26 +33,35 @@ export default function UserProfile() {
         <DropdownMenuLabel>Hello, {user?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {user?.role === 'admin' && (
-          <DropdownMenuGroup>
-            <DropdownMenuItem className="cursor-pointer">
-              <AppWindow className="h-4 w-4 mr-2" />
-              <Link href="/apps">
-                <span>Apps</span>
+          <Fragment>
+            <DropdownMenuGroup>
+              <Link href="/dashboard">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Dock className="h-4 w-4 mr-2" />
+                  <span>Dashboard</span>
+                </DropdownMenuItem>
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <Users className="h-4 w-4 mr-2" />
-              <Link href="/settings">
-                <span>Users</span>
+              <Link href="/admin/apps">
+                <DropdownMenuItem className="cursor-pointer">
+                  <AppWindow className="h-4 w-4 mr-2" />
+                  <span>Apps</span>
+                </DropdownMenuItem>
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Cog className="h-4 w-4 mr-2" />
-              <Link href="/settings">
-                <span>Settings</span>
+              <Link href="/admin/users">
+                <DropdownMenuItem className="cursor-pointer">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>Users</span>
+                </DropdownMenuItem>
               </Link>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
+              <Link href="/admin/settings">
+                <DropdownMenuItem>
+                  <Cog className="h-4 w-4 mr-2" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+              </Link>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+          </Fragment>
         )}
         <LogoutButton>
           <DropdownMenuItem className="cursor-pointer">

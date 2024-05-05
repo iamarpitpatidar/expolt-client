@@ -7,8 +7,6 @@ import { z } from 'zod'
 
 export const getUsers = async () => {
   const session = await auth()
-  if (!session?.user.token) throw new Error('Unauthorized')
-
   const res = await apiFetch<User[]>(`${process.env.API_URL}/users`, {
     headers: { Authorization: `Bearer ${session?.user.token}` },
   })

@@ -13,6 +13,7 @@ export const apiFetch = async <T>(
       },
       ...options,
     }
+    console.log(apiOptions.body)
     const res = await fetch(url, apiOptions)
     const status = res.status
 

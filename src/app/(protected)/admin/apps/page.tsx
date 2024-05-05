@@ -9,11 +9,19 @@ export const metadata: Metadata = {
 }
 
 export default async function Apps() {
-  const tasks = await getAdminApps()
+  const apps = await getAdminApps()
 
   return (
-    <div className="space-y-4 p-6">
-      <AppsDatatable data={tasks} columns={columns} filters={filters} />
+    <div className="space-y-12 p-6">
+      <div className="flex items-center justify-between space-y-2">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
+          <p className="text-muted-foreground">
+            Here&apos;s a list of all your applications!
+          </p>
+        </div>
+      </div>
+      <AppsDatatable data={apps} columns={columns} filters={filters} />
     </div>
   )
 }

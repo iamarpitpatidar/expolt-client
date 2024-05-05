@@ -1,15 +1,15 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { App } from '@/schemas/apps'
+import { User } from '@/schemas/users'
 
 import { Checkbox } from '@components/ui/checkbox'
 import { Badge } from '@components/ui/badge'
-import { statuses, types } from '../data'
+import { statuses, roles } from '../data'
 import { DataTableColumnHeader } from '@components/data-table/data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
-export const columns: ColumnDef<App>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -48,46 +48,31 @@ export const columns: ColumnDef<App>[] = [
     },
   },
   {
-    accessorKey: 'description',
+    accessorKey: 'email',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
+      <DataTableColumnHeader column={column} title="Email" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="max-w-[600px] truncate">
-            {row.getValue('description')}
+            {row.getValue('email')}
           </span>
         </div>
       )
     },
-    enableSorting: false,
   },
   {
-    accessorKey: 'uuid',
+    accessorKey: 'role',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="UUID" />
+      <DataTableColumnHeader column={column} title="Role" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate">{row.getValue('uuid')}</span>
-        </div>
-      )
-    },
-    enableSorting: false,
-  },
-  {
-    accessorKey: 'type',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    cell: ({ row }) => {
-      const type = types.find((type) => type.value === row.getValue('type'))
+      const type = roles.find((role) => role.value === row.getValue('role'))
 
       return (
         <div className="flex space-x-2">
-          <Badge variant={type?.value === 'vm' ? 'default' : 'secondary'}>
+          <Badge variant={type?.value === 'admin' ? 'default' : 'secondary'}>
             {type?.label}
           </Badge>
         </div>

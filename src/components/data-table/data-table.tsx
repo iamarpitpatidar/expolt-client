@@ -1,7 +1,7 @@
 'use client'
 
 import { DataTableToolbar } from '@components/data-table/data-table-toolbar'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -66,7 +66,7 @@ export default function Datatable<TData, TValue>({
   })
 
   return (
-    <Fragment>
+    <div className="space-y-4">
       <DataTableToolbar table={table} filters={filters} />
       <div className="rounded-md border">
         <Table>
@@ -117,6 +117,6 @@ export default function Datatable<TData, TValue>({
         </Table>
       </div>
       <DataTablePagination table={table} />
-    </Fragment>
+    </div>
   )
 }

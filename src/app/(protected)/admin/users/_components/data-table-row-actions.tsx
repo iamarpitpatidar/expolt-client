@@ -16,8 +16,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu'
-import { AppSchema } from '@/schemas/apps'
 import { statuses } from '../data'
+import { UserSchema } from '@/schemas/users'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -26,7 +26,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const app = AppSchema.parse(row.original)
+  const app = UserSchema.parse(row.original)
   const status = statuses.find((status) => status.value === String(app.status))
 
   return (

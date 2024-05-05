@@ -20,7 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         throw new Error('No token found')
       }
 
-      const appUrl = getDeployURl()
+      const appUrl = await getDeployURl()
       const response = await fetch(
         `${appUrl}/api/auth/users/me?token=${token.sub}`,
       ).then((res) => res.json())

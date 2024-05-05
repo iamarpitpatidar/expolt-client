@@ -12,7 +12,7 @@ import { getApps } from '@lib/actions'
 
 import '@assets/css/dash.scss'
 
-export default async function UserDashboard() {
+export default async function Dashboard() {
   const apps = await getApps()
 
   return (

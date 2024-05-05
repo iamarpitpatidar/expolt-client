@@ -54,7 +54,7 @@ export default function UserProfile() {
                 </DropdownMenuItem>
               </Link>
               <Link href="/admin/settings">
-                <DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">
                   <Cog className="h-4 w-4 mr-2" />
                   <span>Settings</span>
                 </DropdownMenuItem>

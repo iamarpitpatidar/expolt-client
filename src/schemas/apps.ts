@@ -5,7 +5,7 @@ const BaseAppSchema = z.object({
   name: z.string(),
   description: z.string(),
   uuid: z.string(),
-  status: z.enum(['0', '1']),
+  status: z.enum(['0', '1']).optional(),
 })
 const WebAppSchema = BaseAppSchema.extend({
   type: z.literal('web'),

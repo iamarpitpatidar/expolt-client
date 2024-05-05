@@ -81,6 +81,7 @@ export const columns: ColumnDef<User>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
+    enableGlobalFilter: false,
   },
   {
     accessorKey: 'status',
@@ -107,6 +108,7 @@ export const columns: ColumnDef<User>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
+    enableGlobalFilter: false,
   },
   {
     id: 'actions',

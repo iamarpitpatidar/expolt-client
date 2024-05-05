@@ -4,7 +4,8 @@ import { ColumnDef } from '@tanstack/react-table'
 import { App } from '@/schemas/apps'
 
 import { Checkbox } from '@components/ui/checkbox'
-import { statuses } from '../data'
+import { Badge } from '@components/ui/badge'
+import { statuses, types } from '../data'
 import { DataTableColumnHeader } from '@components/data-table/data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
@@ -34,27 +35,51 @@ export const columns: ColumnDef<App>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'id',
+    accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: 'title',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue('title')}
+          <span className="max-w-[500px] truncate">{row.getValue('name')}</span>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'description',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate">
+            {row.getValue('description')}
           </span>
         </div>
       )
+    },
+  },
+  {
+    accessorKey: 'type',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Type" />
+    ),
+    cell: ({ row }) => {
+      const type = types.find((type) => type.value === row.getValue('type'))
+
+      return (
+        <div className="flex space-x-2">
+          <Badge variant={type?.value === 'vm' ? 'default' : 'secondary'}>
+            {type?.label}
+          </Badge>
+        </div>
+      )
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
     },
   },
   {
@@ -64,7 +89,7 @@ export const columns: ColumnDef<App>[] = [
     ),
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === row.getValue('status'),
+        (status) => status.value === String(row.getValue('status')),
       )
 
       if (!status) {
@@ -72,11 +97,10 @@ export const columns: ColumnDef<App>[] = [
       }
 
       return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
+        <div className="flex space-x-2">
+          <Badge variant={status?.value === '1' ? 'success' : 'destructive'}>
+            {status?.label}
+          </Badge>
         </div>
       )
     },
@@ -86,6 +110,9 @@ export const columns: ColumnDef<App>[] = [
   },
   {
     id: 'actions',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Actions" />
+    ),
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ]

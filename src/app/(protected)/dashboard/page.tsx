@@ -5,14 +5,14 @@ import {
   CardContent,
   CardDescription,
 } from '@components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@components/ui/badge'
 import { ClockIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { getApps } from '@lib/actions'
 
 import '@assets/css/dash.scss'
 
-export default async function UserDashboard() {
+export default async function Dashboard() {
   const apps = await getApps()
 
   return (

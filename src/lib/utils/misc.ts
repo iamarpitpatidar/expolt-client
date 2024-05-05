@@ -13,10 +13,8 @@ export function getRandomColorHex() {
   ).join('')
 }
 
-export function getDeployURl() {
-  return process.env.NETLIFY
-    ? process.env.CONTEXT === 'production'
+export async function getDeployURl() {
+  return process.env.NODE_ENV === 'production'
       ? process.env.URL
-      : process.env.DEPLOY_URL
-    : process.env.DEPLOY_URL
+      : process.env.APP_URL
 }

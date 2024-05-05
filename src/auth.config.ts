@@ -16,7 +16,7 @@ export default {
           const response = await fetch(`${process.env.API_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(credentials),
+            body: JSON.stringify(validatedFields.data),
           })
 
           if (!response.ok) {

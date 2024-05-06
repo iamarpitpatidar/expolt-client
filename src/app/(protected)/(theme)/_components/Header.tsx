@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { auth } from '../../../../auth'
 import { SessionProvider } from 'next-auth/react'
 import { Earth, Link, LayoutGrid, Search } from 'lucide-react'
 import UserProfile from './UserProfile'

@@ -1,6 +1,7 @@
 import type { NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { LoginSchema } from '@/schemas'
+import { AccessDenied } from '@auth/core/errors'
 
 export default {
   providers: [
@@ -19,11 +20,11 @@ export default {
             body: JSON.stringify(validatedFields.data),
           })
 
-          if (!response.ok) {
-            return null
+          const res = await response.json()
+          if (res.status === 'error') {
+            throw new AccessDenied(res.message)
           }
 
-          const res = await response.json()
           return { id: res.data.token }
         }
 

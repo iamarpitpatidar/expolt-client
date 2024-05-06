@@ -1,3 +1,5 @@
+'use server'
+
 import { APIResponse, FetchResponse } from '@lib/types'
 import { signOut } from '@/auth'
 
@@ -7,13 +9,13 @@ export const apiFetch = async <T>(
 ): Promise<FetchResponse<T>> => {
   try {
     const apiOptions = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options?.headers,
-      },
       ...options,
+      headers: {
+        ...options?.headers,
+        'Content-Type': 'application/json',
+      },
     }
-    console.log(apiOptions.body)
+
     const res = await fetch(url, apiOptions)
     const status = res.status
 

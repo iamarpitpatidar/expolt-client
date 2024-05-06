@@ -3,6 +3,7 @@ import { columns } from './_components/columns'
 import AppsDatatable from '@components/data-table/data-table'
 import { getAdminApps } from '@lib/actions'
 import { filters } from './data'
+import CreateAppDialog from './_components/create-app'
 
 export const metadata: Metadata = {
   title: 'Apps - Expolt',
@@ -20,6 +21,7 @@ export default async function Apps() {
             Here&apos;s a list of all your applications!
           </p>
         </div>
+        <CreateAppDialog />
       </div>
       <AppsDatatable data={apps} columns={columns} filters={filters} />
     </div>

@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
 import { getUsers } from '@lib/actions'
+import { filters } from './data'
 import UsersDatatable from '@components/data-table/data-table'
 import { columns } from './_components/columns'
-import { filters } from './data'
+import AddUserModal from './_components/add-users'
 
 export const metadata: Metadata = {
   title: 'Users - Expolt',
@@ -20,6 +21,7 @@ export default async function users() {
             Here&apos;s a list of all the Users!
           </p>
         </div>
+        <AddUserModal />
       </div>
       <UsersDatatable data={users} columns={columns} filters={filters} />
     </div>

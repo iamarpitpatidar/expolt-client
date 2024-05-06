@@ -23,8 +23,10 @@ export const getSettings = async () => {
 export const updateSettings = async (data: Partial<Settings>) => {
   const session = await auth()
   const res = await apiFetch(`${process.env.API_URL}/settings`, {
-    method: 'PUT',
-    headers: { Authorization: `Bearer ${session?.user.token}` },
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${session?.user.token}`,
+    },
     body: JSON.stringify(data),
   })
 

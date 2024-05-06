@@ -11,27 +11,30 @@ export default {
         password: { label: 'password', type: 'password' },
       },
       authorize: async (credentials) => {
-        const response = await fetch(`${process.env.API_URL}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
-        })
+        const validatedFields = LoginSchema.safeParse(credentials)
 
-        const res = await response.json()
-        if (res.status === 'error') {
-          if (res.status_code === 'INVALID_CREDENTIALS') {
-            throw new CredentialsSignin(res.message)
-          } else if (res.status_code === 'USER_BLOCKED') {
-            throw new AccessDenied(res.message)
-          } else {
-            throw new AuthError(res.message)
+        if (validatedFields.success) {
+          const response = await fetch(`${process.env.API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(validatedFields.data),
+          })
+
+          const res = await response.json()
+          if (res.status === 'error') {
+            if (res.status_code === 'INVALID_CREDENTIALS') {
+              throw new CredentialsSignin(res.message)
+            } else if (res.status_code === 'USER_BLOCKED') {
+              throw new AccessDenied(res.message)
+            } else {
+              throw new AuthError(res.message)
+            }
           }
+
+          return { id: res.data.token }
         }
 
-        return { id: res.data.token }
+        return null
       },
     }),
   ],

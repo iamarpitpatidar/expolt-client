@@ -79,7 +79,7 @@ export default async function Dashboard() {
                     href={
                       app.type === 'web'
                         ? app.meta.redirectTo
-                        : `/dashboard/init-vm/${app.uuid}`
+                        : `/apps/${app.uuid}/connect`
                     }
                     target="_blank"
                   >

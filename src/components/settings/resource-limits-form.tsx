@@ -23,7 +23,13 @@ import { Button } from '@components/ui/button'
 import toast from 'react-hot-toast'
 
 const settingsFormSchema = z.object({
-  default_vm_provider: z.literal('vultr'),
+  default_vm_provider: z.enum([
+    'vultr',
+    'digital_ocean',
+    'aws',
+    'gcp',
+    'azure',
+  ]),
   default_vm_plan: z.literal('vc2-2c-4gb'),
   default_vm_region: z.literal('ewr'),
 })
@@ -57,11 +63,15 @@ export default function ResourceLimitsForm() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Select Default VM Provider" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="vultr">Vultr</SelectItem>
+                  <SelectItem value="digital_ocean">Digital Ocean</SelectItem>
+                  <SelectItem value="aws">AWS</SelectItem>
+                  <SelectItem value="gcp">GCP</SelectItem>
+                  <SelectItem value="azure">Azure</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>Default VM Provider</FormDescription>

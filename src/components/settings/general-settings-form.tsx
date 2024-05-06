@@ -1,5 +1,6 @@
 'use client'
 
+import { useTransition } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,24 +16,36 @@ import {
 import { Input } from '@components/ui/input'
 import { Button } from '@components/ui/button'
 import toast from 'react-hot-toast'
+import { Settings } from '@/schemas/settings'
+import { updateSettings } from '@lib/actions/settings'
 
 const settingsFormSchema = z.object({
-  idle_timeout: z.number().min(1),
+  idle_timeout: z.string().transform((val) => parseInt(val)),
 })
 type settingsFormValues = z.infer<typeof settingsFormSchema>
-const defaultValues: Partial<settingsFormValues> = {
-  idle_timeout: 30,
-}
 
-export default function GeneralSettingsForm() {
+export default function GeneralSettingsForm({
+  settings,
+}: {
+  settings: Settings
+}) {
+  const [isPending, startTransition] = useTransition()
+
   const form = useForm<settingsFormValues>({
     resolver: zodResolver(settingsFormSchema),
-    defaultValues,
+    defaultValues: {
+      idle_timeout: settings.idle_timeout,
+    },
     mode: 'onChange',
   })
 
   const onSubmit = (data: settingsFormValues) => {
-    toast.success('Settings saved successfully.')
+    startTransition(async () => {
+      const response = await updateSettings(data)
+      if (response.status === 'success') {
+        toast.success(response.message)
+      } else toast.error(response.message)
+    })
   }
 
   return (
@@ -45,7 +58,11 @@ export default function GeneralSettingsForm() {
             <FormItem>
               <FormLabel>Idle Timeout</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} className="px-3 py-1" />
+                <Input
+                  placeholder="Idle Timeout"
+                  {...field}
+                  className="px-3 py-1"
+                />
               </FormControl>
               <FormDescription>
                 Set the duration of inactivity before automatic logoff.
@@ -54,7 +71,9 @@ export default function GeneralSettingsForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Update Settings</Button>
+        <Button disabled={isPending} type="submit">
+          Update Settings
+        </Button>
       </form>
     </Form>
   )

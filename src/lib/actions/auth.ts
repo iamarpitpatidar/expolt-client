@@ -32,8 +32,11 @@ export const login = async (
     return { status: 'success', message: 'Login successfully' }
   } catch (error) {
     if (error instanceof AuthError) {
+      console.log(error.type)
       if (error.type === 'CredentialsSignin') {
         return { status: 'error', message: 'Username or Password incorrect!' }
+      } else if (error.type === 'AccessDenied') {
+        return { status: 'error', message: 'User is deactivated!' }
       } else {
         return { status: 'error', message: 'Something went wrong' }
       }

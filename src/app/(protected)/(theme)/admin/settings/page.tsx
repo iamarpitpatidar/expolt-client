@@ -1,7 +1,10 @@
 import { Separator } from '@components/ui/separator'
 import GeneralSettingsForm from '@components/settings/general-settings-form'
+import { getSettings } from '@lib/actions'
 
-export default function GeneralSettings() {
+export default async function GeneralSettings() {
+  const settings = await getSettings()
+
   return (
     <div className="space-y-6">
       <div>
@@ -11,7 +14,7 @@ export default function GeneralSettings() {
         </p>
       </div>
       <Separator />
-      <GeneralSettingsForm />
+      <GeneralSettingsForm settings={settings} />
     </div>
   )
 }

@@ -2,7 +2,6 @@ import { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { SidebarNav } from './_components/sidebar-nav'
 import { routes } from '@/app/routes'
-import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: 'Forms',
@@ -57,7 +56,6 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
         </aside>
         <div className="flex-1 lg:max-w-2xl">{children}</div>
       </div>
-      <Toaster position="top-right" />
     </div>
   )
 }

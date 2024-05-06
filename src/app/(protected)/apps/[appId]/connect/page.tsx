@@ -1,8 +1,16 @@
+import { getVMDetails } from '@lib/actions'
+
 import './style.scss'
 
-export default function ConnectApp() {
-  const progress = ['Connecting']
+export default async function ConnectApp({
+  params,
+}: {
+  params: { appId: string }
+}) {
+  const { appId } = params
+  const prog = await getVMDetails(appId)
 
+  const progress = ['Connecting']
   return (
     <div className="h-screen bg-[#0e1116]">
       <h1 className="text-2xl text-gray-200 text-center py-12">

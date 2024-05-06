@@ -55,7 +55,8 @@ export default function AppFormFields({
           </FormItem>
         )}
       />
-      {form.getValues('meta.redirectTo') !== '' && (
+      {(form.getValues('type') === 'add' ||
+        form.getValues('meta.redirectTo') !== '') && (
         <FormField
           control={form.control}
           name="meta.redirectTo"

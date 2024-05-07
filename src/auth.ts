@@ -24,6 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       console.log('fetching user', appUrl)
       const response = await fetch(
         `${appUrl}/api/auth/users/me?token=${token.sub}`,
+        { headers: { Accept: 'application/json' } },
       ).then((res) => res.json())
       session.user = {
         ...session.user,

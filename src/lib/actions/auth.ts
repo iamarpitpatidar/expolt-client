@@ -36,7 +36,7 @@ export const login = async (
     return { status: 'success', message: 'Login successfully' }
   } catch (error) {
     console.log('final error')
-    console.log(error.message)
+    console.log(error)
     if (error instanceof AuthError) {
       if (error.type === 'CredentialsSignin') {
         return { status: 'error', message: 'Username or Password incorrect!' }

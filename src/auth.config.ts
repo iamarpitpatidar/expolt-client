@@ -11,24 +11,17 @@ export default {
         password: { label: 'password', type: 'password' },
       },
       authorize: async (credentials) => {
-        console.log('init auth')
         const validatedFields = LoginSchema.safeParse(credentials)
 
         if (validatedFields.success) {
-          console.log('validated fields')
           const response = await fetch(`${process.env.API_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(validatedFields.data),
           })
-          console.log('api call')
 
           const res = await response.json()
-          console.log(res)
-          console.log(res.status === 'error')
-          console.log(res.status)
           if (res.status === 'error') {
-            console.log('error')
             if (res.status_code === 'INVALID_CREDENTIALS') {
               throw new CredentialsSignin(res.message)
             } else if (res.status_code === 'USER_BLOCKED') {
@@ -37,8 +30,6 @@ export default {
               throw new AuthError(res.message)
             }
           }
-
-          console.log('success')
 
           return { id: res.data.token }
         }

@@ -21,7 +21,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       const appUrl = await getDeployURl()
-      console.log('fetching user', appUrl)
       const response = await fetch(
         `${appUrl}/api/auth/users/me?token=${token.sub}`,
         {

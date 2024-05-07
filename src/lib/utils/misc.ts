@@ -19,6 +19,6 @@ export async function getDeployURl() {
   console.log(process.env.URL)
   console.log(process.env.APP_URL)
   return process.env.NODE_ENV === 'production'
-    ? process.env.URL ?? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    ? process.env.URL ?? process.env.APP_URL
     : process.env.APP_URL
 }

@@ -25,6 +25,8 @@ export default {
 
           const res = await response.json()
           console.log(res)
+          console.log(res.status === 'error')
+          console.log(res.status)
           if (res.status === 'error') {
             console.log('error')
             if (res.status_code === 'INVALID_CREDENTIALS') {

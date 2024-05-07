@@ -16,21 +16,26 @@ export const login = async (
   values: z.infer<typeof LoginSchema>,
   callbackUrl?: string,
 ): Promise<APIResponse> => {
+  console.log('init login')
   const validatedFields = LoginSchema.safeParse(values)
   if (!validatedFields.success) {
     return { status: 'error', message: validatedFields.error.errors[0].message }
   }
 
+  console.log('validated fields')
   const { email, password } = validatedFields.data
   try {
+    console.log('init signin')
     await signIn('credentials', {
       email,
       password,
       redirectTo: callbackUrl ? atob(callbackUrl) : DEFAULT_LOGIN_REDIRECT,
     })
+    console.log('signin success')
 
     return { status: 'success', message: 'Login successfully' }
   } catch (error) {
+    console.log('error')
     if (error instanceof AuthError) {
       if (error.type === 'CredentialsSignin') {
         return { status: 'error', message: 'Username or Password incorrect!' }

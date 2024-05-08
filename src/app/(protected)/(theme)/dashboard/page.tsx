@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { Suspense } from 'react'
 import {
   Card,
   CardHeader,
@@ -6,8 +8,9 @@ import {
   CardDescription,
 } from '@components/ui/card'
 import { Badge } from '@components/ui/badge'
+import { NewsCard } from './_component/NewsCard'
+import { Skeleton } from '@components/ui/skeleton'
 import { ClockIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
 import { getApps } from '@lib/actions'
 
 import '@assets/css/dash.scss'
@@ -20,21 +23,9 @@ export default async function Dashboard() {
       <div className="grid gap-2 grid-cols-2">
         <div className="grid gap-2 md:grid-cols-2">
           <div className="col-span-2">
-            <Card className="relative">
-              <CardContent className="p-8 dashboard-hero bg-blue-800">
-                <div className="absolute bottom-0 z-20">
-                  <Badge className="my-4" variant="secondary">
-                    Explore
-                  </Badge>
-                  <CardTitle className="text-white text-2xl my-4">
-                    Know latest about our apps
-                  </CardTitle>
-                  <CardDescription className="text-white text-sm mb-8">
-                    Know more at our website
-                  </CardDescription>
-                </div>
-              </CardContent>
-            </Card>
+            <Suspense fallback={<Skeleton className="h-full" />}>
+              <NewsCard />
+            </Suspense>
           </div>
           <Card className="p-8 text-gray-500">
             <CardTitle className="font-bold text-lg mb-2">

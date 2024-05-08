@@ -15,13 +15,13 @@ export default async function DashboardHeader() {
         <div className="grid grid-cols-6 divide-x col-span-2">
           <Link href="/dashboard">
             <div className="font-bold tracking-wide text-lg flex items-center">
-              {process.env.NEXT_PUBLIC_APP_NAME}
               <Image
                 src={Logo}
                 alt={`${process.env.NEXT_PUBLIC_APP_NAME} Logo`}
                 width={40}
-                className="ml-4"
+                className="mr-4"
               />
+              {process.env.NEXT_PUBLIC_APP_NAME}
             </div>
           </Link>
           <div className="flex justify-around items-center">

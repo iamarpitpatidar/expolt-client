@@ -19,6 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { UserActionSchema } from '@/schemas/users'
 import { createUser } from '@lib/actions'
 import UserFormFields from './form-fields'
+import { Spinner } from '@components/ui/spinner'
 
 type UserFormValues = z.infer<typeof UserActionSchema>
 export default function AddUserModal() {
@@ -66,6 +67,7 @@ export default function AddUserModal() {
             <UserFormFields form={form} />
             <DialogFooter>
               <Button disabled={isPending} type="submit">
+                {isPending && <Spinner className="w-4 h-4 mr-2" />}
                 Add User
               </Button>
             </DialogFooter>

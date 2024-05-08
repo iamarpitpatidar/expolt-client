@@ -20,6 +20,7 @@ import FormError from '@components/form-error'
 import FormSuccess from '@components/form-success'
 import { login } from '@lib/actions'
 import { APIResponse } from '@lib/types'
+import { Spinner } from '@components/ui/spinner'
 
 export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   const [response, setResponse] = useState<APIResponse | null>(null)
@@ -123,6 +124,7 @@ export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
           size="xl"
           disabled={isPending}
         >
+          {isPending && <Spinner className="w-4 h-4 mr-2" />}
           Log In
         </Button>
       </form>

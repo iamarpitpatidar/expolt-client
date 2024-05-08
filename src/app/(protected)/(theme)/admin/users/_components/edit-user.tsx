@@ -18,6 +18,7 @@ import UserFormFields from './form-fields'
 
 import { UserActionSchema, UserSchema } from '@/schemas/users'
 import { updateUser } from '@lib/actions'
+import { Spinner } from '@components/ui/spinner'
 
 type UserFormValues = z.infer<typeof UserActionSchema>
 export default function EditUserDialog({
@@ -66,6 +67,7 @@ export default function EditUserDialog({
             <UserFormFields form={form} />
             <DialogFooter>
               <Button disabled={isPending} type="submit">
+                {isPending && <Spinner className="w-4 h-4 mr-2" />}
                 Update User
               </Button>
             </DialogFooter>

@@ -19,6 +19,7 @@ import { sendPasswordResetMail } from '@lib/actions'
 import FormSuccess from '@components/form-success'
 import FormError from '@components/form-error'
 import { Button } from '@components/ui/button'
+import { Spinner } from '@components/ui/spinner'
 
 export default function ForgotPasswordForm() {
   const [response, setResponse] = useState<APIResponse | null>(null)
@@ -78,6 +79,7 @@ export default function ForgotPasswordForm() {
           size="xl"
           disabled={isPending}
         >
+          {isPending && <Spinner className="w-4 h-4 mr-2" />}
           Reset Password
         </Button>
       </form>

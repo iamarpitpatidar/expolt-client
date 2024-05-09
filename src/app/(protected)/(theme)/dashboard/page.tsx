@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { Suspense } from 'react'
 import {
   Card,
   CardHeader,
@@ -6,50 +8,44 @@ import {
   CardDescription,
 } from '@components/ui/card'
 import { Badge } from '@components/ui/badge'
+import { NewsCard } from './_component/NewsCard'
+import { Skeleton } from '@components/ui/skeleton'
 import { ClockIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
 import { getApps } from '@lib/actions'
+import { getTimeInAMPMFormat, getFormatedDate } from '@lib/utils'
 
 import '@assets/css/dash.scss'
 
 export default async function Dashboard() {
   const apps = await getApps()
+  const currentTime = getTimeInAMPMFormat()
+  const currentDate = getFormatedDate()
 
   return (
     <div className="bg-gray-200 p-6">
-      <div className="grid gap-2 grid-cols-2">
-        <div className="grid gap-2 md:grid-cols-2">
-          <div className="col-span-2">
-            <Card className="relative">
-              <CardContent className="p-8 dashboard-hero bg-blue-800">
-                <div className="absolute bottom-0 z-20">
-                  <Badge className="my-4" variant="secondary">
-                    Explore
-                  </Badge>
-                  <CardTitle className="text-white text-2xl my-4">
-                    Know latest about our apps
-                  </CardTitle>
-                  <CardDescription className="text-white text-sm mb-8">
-                    Know more at our website
-                  </CardDescription>
-                </div>
-              </CardContent>
+      <div className="grid gap-2 lg:grid-cols-2">
+        <div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <div className="col-span-2 hidden">
+              <Suspense fallback={<Skeleton className="h-full" />}>
+                <NewsCard />
+              </Suspense>
+            </div>
+            <Card className="p-8 text-gray-500">
+              <CardTitle className="font-bold text-lg mb-2">
+                30<sup>o</sup>
+              </CardTitle>
+              <Badge variant="secondary">Today</Badge>
+              <CardTitle className="text-sm py-2">Feels like rainy</CardTitle>
+              <CardDescription className="text-xs">
+                {currentDate}
+              </CardDescription>
+            </Card>
+            <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
+              <ClockIcon className="h-14 w-14 mr-2" />
+              {currentTime}
             </Card>
           </div>
-          <Card className="p-8 text-gray-500">
-            <CardTitle className="font-bold text-lg mb-2">
-              30<sup>o</sup>
-            </CardTitle>
-            <Badge variant="secondary">Today</Badge>
-            <CardTitle className="text-sm py-2">Feels like rainy</CardTitle>
-            <CardDescription className="text-xs">
-              Apr 30, Tuesday
-            </CardDescription>
-          </Card>
-          <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
-            <ClockIcon className="h-14 w-14 mr-2" />
-            12:30 PM
-          </Card>
         </div>
         <div className="grid gap-2 md:grid-cols-2 h-screen overflow-scroll">
           {apps.map((app) => (

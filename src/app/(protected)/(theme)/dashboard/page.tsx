@@ -17,9 +17,17 @@ import { getTimeInAMPMFormat } from '@lib/utils'
 import '@assets/css/dash.scss'
 import WeatherCard from '@/app/(protected)/(theme)/dashboard/_component/WeatherCard'
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: { q: string }
+}) {
   const apps = await getApps()
   const currentTime = getTimeInAMPMFormat()
+
+  const filteredApps = apps.filter((app) =>
+    app.name.toLowerCase().includes((searchParams.q || '').toLowerCase()),
+  )
 
   return (
     <div className="bg-gray-200 p-6">
@@ -41,7 +49,7 @@ export default async function Dashboard() {
           </div>
         </div>
         <div className="grid gap-2 md:grid-cols-2 h-screen overflow-scroll">
-          {apps.map((app) => (
+          {filteredApps.map((app) => (
             <Card
               key={app.id}
               className="opacity-80"

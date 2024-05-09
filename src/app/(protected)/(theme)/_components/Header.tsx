@@ -21,7 +21,9 @@ export default async function DashboardHeader() {
                 width={40}
                 className="mr-4"
               />
-              <span className="hidden">{process.env.NEXT_PUBLIC_APP_NAME}</span>
+              <span className="hidden lg:block">
+                {process.env.NEXT_PUBLIC_APP_NAME}
+              </span>
             </div>
           </Link>
           <div className="flex justify-around items-center">

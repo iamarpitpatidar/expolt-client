@@ -6,7 +6,8 @@ import * as VMActions from './vm'
 
 export const { getAdminApps, getApps, createApp, updateApp, deleteApp } =
   appActions
-export const { login, resetPassword, sendPasswordResetMail } = authActions
+export const { login, resetPassword, sendPasswordResetMail, Logout } =
+  authActions
 export const { getUsers, createUser, updateUser, deleteUser } = userActions
 export const { getSettings } = SettingsActions
 export const { getVMDetails } = VMActions

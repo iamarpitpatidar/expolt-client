@@ -12,7 +12,7 @@ export default async function DashboardHeader() {
   return (
     <SessionProvider session={session}>
       <header className="grid grid-cols-3 py-4 px-6 border-b">
-        <div className="grid grid-cols-6 divide-x col-span-2">
+        <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 divide-x col-span-2">
           <Link href="/dashboard">
             <div className="font-bold tracking-wide text-lg flex items-center">
               <Image
@@ -21,7 +21,7 @@ export default async function DashboardHeader() {
                 width={40}
                 className="mr-4"
               />
-              {process.env.NEXT_PUBLIC_APP_NAME}
+              <span className="hidden">{process.env.NEXT_PUBLIC_APP_NAME}</span>
             </div>
           </Link>
           <div className="flex justify-around items-center">
@@ -32,7 +32,7 @@ export default async function DashboardHeader() {
               <LayoutGrid className="h-6 w-6 text-gray-600" />
             </Link>
           </div>
-          <div className="col-span-3 flex px-6 items-center text-gray-600">
+          <div className="hidden md:flex col-span-3 px-6 items-center text-gray-600">
             <Search className="h-4 w-4 mr-2" />
             <input
               type="text"

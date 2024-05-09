@@ -1,9 +1,12 @@
-import { auth } from '@/auth'
 import Link from 'next/link'
-import { SessionProvider } from 'next-auth/react'
-import { Earth, LayoutGrid, Search } from 'lucide-react'
-import UserProfile from './UserProfile'
 import Image from 'next/image'
+import { auth } from '@/auth'
+import { SessionProvider } from 'next-auth/react'
+import { Earth, LayoutGrid } from 'lucide-react'
+
+import UserProfile from './UserProfile'
+import SearchInput from './SearchInput'
+
 import Logo from '@assets/images/logo.png'
 
 export default async function DashboardHeader() {
@@ -34,14 +37,7 @@ export default async function DashboardHeader() {
               <LayoutGrid className="h-6 w-6 text-gray-600" />
             </Link>
           </div>
-          <div className="hidden md:flex col-span-3 px-6 items-center text-gray-600">
-            <Search className="h-4 w-4 mr-2" />
-            <input
-              type="text"
-              placeholder="Type anywhere to search"
-              className="w-full outline-none"
-            />
-          </div>
+          <SearchInput />
         </div>
         <div className="flex items-center justify-end">
           <UserProfile />

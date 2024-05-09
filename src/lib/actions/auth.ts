@@ -1,7 +1,7 @@
 'use server'
 
 import * as z from 'zod'
-import { signIn, signOut } from '@/auth'
+import { signIn, signOut, auth } from '@/auth'
 import { AuthError } from 'next-auth'
 import {
   LoginSchema,
@@ -85,5 +85,14 @@ export const resetPassword = async (
 }
 
 export const Logout = async () => {
+  const session = await auth()
+  if (!session) return
+
+  await fetch(`${process.env.API_URL}/auth/logout`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session.user.token}`,
+    },
+  })
   await signOut({ redirectTo: DEFAULT_LOGOUT_REDIRECT })
 }

@@ -40,5 +40,6 @@ export default {
   ],
   pages: {
     signIn: '/auth/login',
+    signOut: '/auth/login',
   },
 } satisfies NextAuthConfig

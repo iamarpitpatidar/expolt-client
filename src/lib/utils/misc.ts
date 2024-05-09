@@ -14,7 +14,5 @@ export function getRandomColorHex() {
 }
 
 export async function getDeployURl() {
-  return process.env.NODE_ENV === 'production'
-    ? process.env.URL ?? process.env.APP_URL
-    : process.env.APP_URL
+  return process.env.APP_URL
 }

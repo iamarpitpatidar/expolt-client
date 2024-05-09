@@ -16,6 +16,7 @@ import { DialogProps } from '@lib/types/components'
 import { DeleteUserSchema } from '@/schemas/users'
 import { deleteUser } from '@lib/actions'
 import { toast } from 'react-hot-toast'
+import { Spinner } from '@components/ui/spinner'
 
 type DeleteUserFormValues = z.infer<typeof DeleteUserSchema>
 export default function DeleteUserDialog({
@@ -53,6 +54,7 @@ export default function DeleteUserDialog({
             <DialogFooter>
               <Button onClick={dialog.dismiss}>Cancel</Button>
               <Button variant="destructive" type="submit" disabled={isPending}>
+                {isPending && <Spinner className="w-4 h-4 mr-2" />}
                 Delete
               </Button>
             </DialogFooter>

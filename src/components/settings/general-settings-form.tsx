@@ -2,6 +2,7 @@
 
 import { useTransition } from 'react'
 import { z } from 'zod'
+import toast from 'react-hot-toast'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -15,7 +16,8 @@ import {
 } from '@components/ui/form'
 import { Input } from '@components/ui/input'
 import { Button } from '@components/ui/button'
-import toast from 'react-hot-toast'
+import { Spinner } from '@components/ui/spinner'
+
 import { Settings } from '@/schemas/settings'
 import { updateSettings } from '@lib/actions/settings'
 
@@ -72,6 +74,7 @@ export default function GeneralSettingsForm({
           )}
         />
         <Button disabled={isPending} type="submit">
+          {isPending && <Spinner className="w-4 h-4 mr-2" />}
           Update Settings
         </Button>
       </form>

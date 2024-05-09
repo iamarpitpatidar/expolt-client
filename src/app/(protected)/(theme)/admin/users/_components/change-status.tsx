@@ -31,6 +31,7 @@ import { statuses } from '../data'
 import { ChangeStatusSchema, User } from '@/schemas/users'
 import { Button } from '@components/ui/button'
 import { updateStatus } from '@lib/actions/users'
+import { Spinner } from '@components/ui/spinner'
 
 type ChangeStatusFormValues = z.infer<typeof ChangeStatusSchema>
 export default function ChangeStatusDialog({
@@ -100,6 +101,7 @@ export default function ChangeStatusDialog({
             />
             <DialogFooter>
               <Button disabled={isPending} type="submit">
+                {isPending && <Spinner className="w-4 h-4 mr-2" />}
                 Update Status
               </Button>
             </DialogFooter>

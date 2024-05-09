@@ -20,6 +20,7 @@ import AppFormFields from './form-fields'
 
 import { AppActionSchema } from '@/schemas/apps'
 import { createApp } from '@lib/actions'
+import { Spinner } from '@components/ui/spinner'
 
 type FormValues = z.infer<typeof AppActionSchema>
 export default function CreateAppDialog() {
@@ -68,6 +69,7 @@ export default function CreateAppDialog() {
             <AppFormFields form={form} />
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
+                {isPending && <Spinner className="w-4 h-4 mr-2" />}
                 Create App
               </Button>
             </DialogFooter>

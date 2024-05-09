@@ -19,6 +19,7 @@ import { resetPassword } from '@lib/actions'
 import FormSuccess from '@components/form-success'
 import FormError from '@components/form-error'
 import { Button } from '@components/ui/button'
+import { Spinner } from '@components/ui/spinner'
 
 export default function ResetPasswordForm({
   email,
@@ -108,6 +109,7 @@ export default function ResetPasswordForm({
           size="xl"
           disabled={isPending}
         >
+          {isPending && <Spinner className="w-4 h-4 mr-2" />}
           Reset Password
         </Button>
       </form>

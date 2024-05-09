@@ -1,7 +1,10 @@
-import { auth } from '../../../../auth'
+import { auth } from '@/auth'
+import Link from 'next/link'
 import { SessionProvider } from 'next-auth/react'
-import { Earth, Link, LayoutGrid, Search } from 'lucide-react'
+import { Earth, LayoutGrid, Search } from 'lucide-react'
 import UserProfile from './UserProfile'
+import Image from 'next/image'
+import Logo from '@assets/images/logo.png'
 
 export default async function DashboardHeader() {
   const session = await auth()
@@ -10,13 +13,24 @@ export default async function DashboardHeader() {
     <SessionProvider session={session}>
       <header className="grid grid-cols-3 py-4 px-6 border-b">
         <div className="grid grid-cols-6 divide-x col-span-2">
-          <div className="font-bold tracking-wide text-lg flex items-center">
-            {process.env.NEXT_PUBLIC_APP_NAME}
-          </div>
+          <Link href="/dashboard">
+            <div className="font-bold tracking-wide text-lg flex items-center">
+              {process.env.NEXT_PUBLIC_APP_NAME}
+              <Image
+                src={Logo}
+                alt={`${process.env.NEXT_PUBLIC_APP_NAME} Logo`}
+                width={40}
+                className="ml-4"
+              />
+            </div>
+          </Link>
           <div className="flex justify-around items-center">
-            <Earth className="h-6 w-6 text-gray-600" />
-            <Link className="h-6 w-6 text-gray-600" />
-            <LayoutGrid className="h-6 w-6 text-gray-600" />
+            <Link href="https://expolt.com" target="_blank">
+              <Earth className="h-6 w-6 text-gray-600" />
+            </Link>
+            <Link href="/dashboard">
+              <LayoutGrid className="h-6 w-6 text-gray-600" />
+            </Link>
           </div>
           <div className="col-span-3 flex px-6 items-center text-gray-600">
             <Search className="h-4 w-4 mr-2" />

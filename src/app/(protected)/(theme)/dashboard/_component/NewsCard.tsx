@@ -13,7 +13,7 @@ async function NewsCard() {
   if (
     !articles.chain().data().length ||
     !lastUpdateTime ||
-    lastUpdateTime > Date.now() - 1000 * 60 * 60 * 24
+    lastUpdateTime > Date.now() - 1000 * 60 * 60
   ) {
     const response = await fetch(
       `https://gnews.io/api/v4/search?q=tech&lang=en&country=in&max=10&apikey=${process.env.NEWS_API_KEY}`,

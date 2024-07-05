@@ -13,9 +13,9 @@ import { Skeleton } from '@components/ui/skeleton'
 import { ClockIcon } from '@radix-ui/react-icons'
 import { getApps } from '@lib/actions'
 import { getTimeInAMPMFormat } from '@lib/utils'
+import WeatherCard from './_component/WeatherCard'
 
 import '@assets/css/dash.scss'
-import WeatherCard from '@/app/(protected)/(theme)/dashboard/_component/WeatherCard'
 
 export default async function Dashboard({
   searchParams,

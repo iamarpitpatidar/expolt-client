@@ -10,3 +10,8 @@
   left: 0;
   background: rgba(0, 0, 0, 0.25);
 }
+@media only screen and (min-width: 1024px) {
+  .apps-card {
+    height: calc(100vh - 120px)
+  }
+}

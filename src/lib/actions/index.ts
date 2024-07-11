@@ -3,6 +3,7 @@ import * as authActions from './auth'
 import * as userActions from './users'
 import * as SettingsActions from './settings'
 import * as VMActions from './vm'
+import * as MiscActions from './misc'
 
 export const { getAdminApps, getApps, createApp, updateApp, deleteApp } =
   appActions
@@ -11,3 +12,4 @@ export const { login, resetPassword, sendPasswordResetMail, Logout } =
 export const { getUsers, createUser, updateUser, deleteUser } = userActions
 export const { getSettings } = SettingsActions
 export const { getVMDetails } = VMActions
+export const { getWeatherData } = MiscActions

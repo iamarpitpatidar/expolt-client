@@ -1,15 +1,15 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
+import { useAtom } from 'jotai'
+import { DashboardSearch } from '@lib/store/atoms'
 
 export default function SearchInput() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const [search, setSearch] = useAtom(DashboardSearch)
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    router.push(`/dashboard?q=${e.target.value}`)
+    setSearch(e.target.value)
   }
 
   return (
@@ -17,7 +17,7 @@ export default function SearchInput() {
       <Search className="h-4 w-4 mr-2" />
       <input
         type="text"
-        defaultValue={searchParams.get('q') ?? ''}
+        defaultValue={search}
         placeholder="Type anywhere to search"
         className="w-full outline-none"
         onChange={handleSearch}

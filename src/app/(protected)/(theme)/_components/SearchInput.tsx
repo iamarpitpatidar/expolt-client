@@ -1,11 +1,13 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
 
 export default function SearchInput() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     router.push(`/dashboard?q=${e.target.value}`)
   }
@@ -15,6 +17,7 @@ export default function SearchInput() {
       <Search className="h-4 w-4 mr-2" />
       <input
         type="text"
+        defaultValue={searchParams.get('q') ?? ''}
         placeholder="Type anywhere to search"
         className="w-full outline-none"
         onChange={handleSearch}

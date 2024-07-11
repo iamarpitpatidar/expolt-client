@@ -1,26 +1,22 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@components/ui/card'
-import { Badge } from '@components/ui/badge'
-import Link from 'next/link'
-import { getApps } from '@lib/actions'
+'use client'
 
-export default async function AppsList({ search }: { search?: string }) {
-  const apps = await getApps()
+import Link from 'next/link'
+import { Fragment } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card'
+import { Badge } from '@components/ui/badge'
+import { useAtomValue } from 'jotai/index'
+import { App } from '@/schemas/apps'
+import { DashboardSearch } from '@lib/store/atoms'
+
+export default function AppsList({ apps }: { apps: App[] }) {
+  const search = useAtomValue(DashboardSearch)
 
   const filteredApps = apps.filter((app) =>
     app.name.toLowerCase().includes((search || '').toLowerCase()),
   )
 
   return (
-    <div
-      className="grid gap-2 sm:grid-cols-2 auto-rows-max overflow-scroll"
-      style={{ height: 'calc(100vh - 120px)' }}
-    >
+    <Fragment>
       {filteredApps.map((app) => (
         <Card
           key={app.id}
@@ -58,6 +54,6 @@ export default async function AppsList({ search }: { search?: string }) {
           </CardContent>
         </Card>
       ))}
-    </div>
+    </Fragment>
   )
 }

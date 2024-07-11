@@ -4,15 +4,11 @@ import { NewsCard } from './_component/NewsCard'
 import { Skeleton } from '@components/ui/skeleton'
 import WeatherCard from './_component/WeatherCard'
 import DateTimeCard from './_component/DateTimeCard'
-import AppsList from './_component/AppsList'
+import AppsCard from './_component/AppsCard'
 
 import '@assets/css/dash.scss'
 
-export default async function Dashboard({
-  searchParams,
-}: {
-  searchParams: { q: string }
-}) {
+export default async function Dashboard() {
   return (
     <div className="bg-gray-200 p-6">
       <div className="grid gap-2 lg:grid-cols-2">
@@ -31,7 +27,7 @@ export default async function Dashboard({
             </Card>
           </div>
         </div>
-        <AppsList search={searchParams.q} />
+        <AppsCard />
       </div>
     </div>
   )

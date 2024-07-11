@@ -17,7 +17,7 @@ export default async function AppsList({ search }: { search?: string }) {
   )
 
   return (
-    <div className="grid gap-2 md:grid-cols-2 h-screen overflow-scroll">
+    <div className="grid gap-2 sm:grid-cols-2 auto-rows-max max-h-screen overflow-scroll">
       {filteredApps.map((app) => (
         <Card
           key={app.id}

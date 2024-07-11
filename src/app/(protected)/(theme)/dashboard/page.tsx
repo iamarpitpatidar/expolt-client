@@ -1,19 +1,10 @@
-import Link from 'next/link'
 import { Suspense } from 'react'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription,
-} from '@components/ui/card'
-import { Badge } from '@components/ui/badge'
+import { Card } from '@components/ui/card'
 import { NewsCard } from './_component/NewsCard'
 import { Skeleton } from '@components/ui/skeleton'
-import { ClockIcon } from '@radix-ui/react-icons'
-import { getApps } from '@lib/actions'
-import { getTimeInAMPMFormat } from '@lib/utils'
 import WeatherCard from './_component/WeatherCard'
+import DateTimeCard from './_component/DateTimeCard'
+import AppsList from './_component/AppsList'
 
 import '@assets/css/dash.scss'
 
@@ -22,13 +13,6 @@ export default async function Dashboard({
 }: {
   searchParams: { q: string }
 }) {
-  const apps = await getApps()
-  const currentTime = getTimeInAMPMFormat()
-
-  const filteredApps = apps.filter((app) =>
-    app.name.toLowerCase().includes((searchParams.q || '').toLowerCase()),
-  )
-
   return (
     <div className="bg-gray-200 p-6">
       <div className="grid gap-2 lg:grid-cols-2">
@@ -43,50 +27,11 @@ export default async function Dashboard({
               <WeatherCard />
             </Suspense>
             <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
-              <ClockIcon className="h-14 w-14 mr-2" />
-              {currentTime}
+              <DateTimeCard />
             </Card>
           </div>
         </div>
-        <div className="grid gap-2 md:grid-cols-2 h-screen overflow-scroll">
-          {filteredApps.map((app) => (
-            <Card
-              key={app.id}
-              className="opacity-80"
-              style={{ backgroundColor: `${app.meta.background}` }}
-            >
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <Badge
-                  variant="secondary"
-                  className="text-sm text-muted-foreground font-medium px-3 capitalize"
-                >
-                  {app.type}
-                </Badge>
-              </CardHeader>
-              <CardContent>
-                <CardTitle className="text-white py-4 text-2xl">
-                  {app.name}
-                </CardTitle>
-                <CardDescription className="text-white py-4 line-clamp-2">
-                  {app.description}
-                </CardDescription>
-                <div className="mt-8">
-                  <Link
-                    className="bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 mt-4"
-                    href={
-                      app.type === 'web'
-                        ? app.meta.redirectTo
-                        : `/apps/${app.uuid}/connect`
-                    }
-                    target="_blank"
-                  >
-                    Open Software
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <AppsList search={searchParams.q} />
       </div>
     </div>
   )

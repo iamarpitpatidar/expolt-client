@@ -1,11 +1,50 @@
 'use server'
 
 import * as z from 'zod'
-import { signOut, auth } from '@/auth'
-import { ForgotPasswordSchema, ResetPasswordSchema } from '@/schemas'
+import { signOut, auth, signIn } from '@/auth'
+import {
+  ForgotPasswordSchema,
+  LoginSchema,
+  ResetPasswordSchema,
+} from '@/schemas'
 import { APIResponse } from '@lib/types'
 import { DEFAULT_LOGOUT_REDIRECT } from '@/routes'
 import { apiFetch } from '@lib/utils'
+import { AuthError } from 'next-auth'
+
+export const login = async (
+  data: z.infer<typeof LoginSchema>,
+): Promise<APIResponse> => {
+  const validatedFields = LoginSchema.safeParse(data)
+  if (!validatedFields.success) {
+    return { status: 'error', message: validatedFields.error.errors[0].message }
+  }
+
+  const { email, password } = validatedFields.data
+  try {
+    await signIn('credentials', {
+      email,
+      password,
+    })
+
+    return { status: 'success', message: 'Login successfully' }
+  } catch (error) {
+    if (error instanceof AuthError) {
+      if (error.type === 'CredentialsSignin') {
+        return {
+          status: 'error',
+          message: 'Username or Password incorrect!',
+        }
+      } else if (error.type === 'AccessDenied') {
+        return { status: 'error', message: 'User is deactivated!' }
+      } else {
+        return { status: 'error', message: 'Something went wrong' }
+      }
+    }
+
+    throw error
+  }
+}
 
 export const sendPasswordResetMail = async (
   data: z.infer<typeof ForgotPasswordSchema>,

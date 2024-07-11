@@ -28,7 +28,6 @@ async function NewsCard() {
     ).then((res) => res.json())
 
     const { articles: data } = response
-    console.log(response)
     if (!data) return null
     articles.insert(data)
     if (lastUpdateTime) lastUpdate.remove(lastUpdateTime)
@@ -38,14 +37,14 @@ async function NewsCard() {
 
   return (
     <Fragment>
-      <Carousel>
+      <Carousel opts={{ loop: true }}>
         <CarouselContent>
           {articleResponse.map((article, index) => (
             <CarouselItem key={index}>
               <Card
                 className="relative overlay"
                 style={{
-                  background: `url(${article.image})`,
+                  background: `url('${article.image}')`,
                   backgroundSize: 'cover',
                 }}
               >

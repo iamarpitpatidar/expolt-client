@@ -13,7 +13,11 @@ export default async function DashboardHeader() {
   const session = await auth()
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider
+      session={session}
+      refetchInterval={60}
+      refetchOnWindowFocus={false}
+    >
       <header className="grid grid-cols-3 py-4 px-6 border-b">
         <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 divide-x col-span-2">
           <Link href="/dashboard">

@@ -19,9 +19,8 @@ export default async function Dashboard() {
                 <NewsCard />
               </Suspense>
             </div>
-            <Suspense fallback={<Skeleton />}>
-              <WeatherCard />
-            </Suspense>
+            <WeatherCard />
+            <Suspense fallback={<Skeleton />}></Suspense>
             <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
               <DateTimeCard />
             </Card>

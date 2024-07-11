@@ -10,10 +10,9 @@ import {
 import { Badge } from '@components/ui/badge'
 import { NewsCard } from './_component/NewsCard'
 import { Skeleton } from '@components/ui/skeleton'
-import { ClockIcon } from '@radix-ui/react-icons'
 import { getApps } from '@lib/actions'
-import { getTimeInAMPMFormat } from '@lib/utils'
 import WeatherCard from './_component/WeatherCard'
+import DateTimeCard from './_component/DateTimeCard'
 
 import '@assets/css/dash.scss'
 
@@ -23,7 +22,6 @@ export default async function Dashboard({
   searchParams: { q: string }
 }) {
   const apps = await getApps()
-  const currentTime = getTimeInAMPMFormat()
 
   const filteredApps = apps.filter((app) =>
     app.name.toLowerCase().includes((searchParams.q || '').toLowerCase()),
@@ -43,8 +41,7 @@ export default async function Dashboard({
               <WeatherCard />
             </Suspense>
             <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
-              <ClockIcon className="h-14 w-14 mr-2" />
-              {currentTime}
+              <DateTimeCard />
             </Card>
           </div>
         </div>

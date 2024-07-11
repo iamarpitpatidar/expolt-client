@@ -24,10 +24,10 @@ export default async function AppsList({ search }: { search?: string }) {
       {filteredApps.map((app) => (
         <Card
           key={app.id}
-          className="opacity-80"
+          className="opacity-80 flex flex-col"
           style={{
             backgroundColor: `${app.meta.background}`,
-            maxHeight: '240px',
+            height: '240px',
           }}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -38,14 +38,11 @@ export default async function AppsList({ search }: { search?: string }) {
               {app.type}
             </Badge>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex flex-col flex-grow justify-between">
             <CardTitle className="text-white py-4 text-2xl">
               {app.name}
             </CardTitle>
-            <CardDescription className="text-white py-4 line-clamp-2">
-              {app.description}
-            </CardDescription>
-            <div className="mt-8">
+            <div className="">
               <Link
                 className="bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 mt-4"
                 href={

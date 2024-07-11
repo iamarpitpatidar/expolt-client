@@ -1,10 +1,13 @@
 'use client'
 
+import * as z from 'zod'
 import Link from 'next/link'
 import { useTransition, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+import { APIResponse } from '@lib/types'
+import { login } from '@lib/actions'
 import { useRouter } from 'next/navigation'
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { Input } from '@components/ui/input'
 import {
   Form,
@@ -19,11 +22,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@components/ui/button'
 import FormError from '@components/form-error'
 import FormSuccess from '@components/form-success'
-import { APIResponse } from '@lib/types'
 import { Spinner } from '@components/ui/spinner'
-import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
-import { signIn } from '@/auth'
-import { AuthError } from 'next-auth'
 
 export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   const [response, setResponse] = useState<APIResponse | null>(null)
@@ -44,30 +43,7 @@ export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
     setResponse(null)
 
     startTransition(async () => {
-      const { email, password } = data
-      try {
-        await signIn('credentials', {
-          email,
-          password,
-        })
-
-        setResponse({ status: 'success', message: 'Login successfully' })
-      } catch (error) {
-        if (error instanceof AuthError) {
-          if (error.type === 'CredentialsSignin') {
-            setResponse({
-              status: 'error',
-              message: 'Username or Password incorrect!',
-            })
-          } else if (error.type === 'AccessDenied') {
-            setResponse({ status: 'error', message: 'User is deactivated!' })
-          } else {
-            setResponse({ status: 'error', message: 'Something went wrong' })
-          }
-        }
-
-        throw error
-      }
+      login(data).then((response) => setResponse(response))
       if (response?.status === 'success') {
         router.push(callbackUrl ? atob(callbackUrl) : DEFAULT_LOGIN_REDIRECT)
       }

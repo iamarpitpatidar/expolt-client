@@ -1,6 +1,5 @@
 import NextAuth, { type DefaultSession } from 'next-auth'
 import AuthConfig from './auth.config'
-import { getDeployURl } from '@lib/utils'
 
 export type ExtendedUser = DefaultSession['user'] & {
   role: 'admin' | 'user'
@@ -20,9 +19,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         throw new Error('No token found')
       }
 
-      const appUrl = await getDeployURl()
       const response = await fetch(
-        `${appUrl}/api/auth/users/me?token=${token.sub}`,
+        `${process.env.APP_URL}/api/auth/users/me?token=${token.sub}`,
         {
           headers: {
             Accept: 'application/json',

@@ -1,16 +1,45 @@
+'use client'
+
 import { getVMDetails } from '@lib/actions'
+import { useState, useEffect } from 'react'
 
 import './style.scss'
 
-export default async function ConnectApp({
-  params,
-}: {
-  params: { appId: string }
-}) {
-  const { appId } = params
-  const prog = await getVMDetails(appId)
+export default function ConnectApp({ params }: { params: { appId: string } }) {
+  const [progress, setProgress] = useState<string[]>(['connecting'])
+  const lang: Record<string, string> = {
+    connecting: 'Connecting',
+    provisioning: 'Provisioning your system',
+    failed: 'Connection failed try again later.',
+    running: 'Redirecting, please wait',
+  }
 
-  const progress = ['Connecting']
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const { response, error } = await getVMDetails(params.appId)
+      if (!response || error) {
+        setProgress([...progress, 'failed'])
+        return
+      }
+
+      if (
+        response &&
+        response.data?.state &&
+        !progress.includes(response.data.state)
+      ) {
+        setProgress([...progress, response.data.state])
+        if (response.data.state === 'running') {
+          clearInterval(interval)
+          setTimeout(() => {
+            window.location.href = response.data?.redirectTo || ''
+          }, 2000)
+        }
+      }
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [params.appId, progress])
+
   return (
     <div className="h-screen bg-[#0e1116]">
       <h1 className="text-2xl text-gray-200 text-center py-12">
@@ -23,7 +52,7 @@ export default async function ConnectApp({
               key={index}
               className="flex items-center text-gray-300 text-sm mt-1"
             >
-              {step}
+              {lang[step]}
             </div>
           ))}
           <div className="loader text-gray-200"></div>

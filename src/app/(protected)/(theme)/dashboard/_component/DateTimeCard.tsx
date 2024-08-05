@@ -1,11 +1,18 @@
 'use client'
 
 import { ClockIcon } from '@radix-ui/react-icons'
-import { Fragment } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { getTimeInAMPMFormat } from '@lib/utils'
 
 export default function DateTimeCard() {
-  const currentTime = getTimeInAMPMFormat()
+  const [currentTime, setCurrentTime] = useState(getTimeInAMPMFormat())
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(getTimeInAMPMFormat())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <Fragment>

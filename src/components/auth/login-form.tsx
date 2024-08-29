@@ -43,10 +43,12 @@ export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
     setResponse(null)
 
     startTransition(async () => {
-      login(data).then((response) => setResponse(response))
-      if (response?.status === 'success') {
-        router.push(callbackUrl ? atob(callbackUrl) : DEFAULT_LOGIN_REDIRECT)
-      }
+      login(data).then((response) => {
+        setResponse(response)
+        if (response?.status === 'success') {
+          router.push(callbackUrl ? atob(callbackUrl) : DEFAULT_LOGIN_REDIRECT)
+        }
+      })
     })
   }
 

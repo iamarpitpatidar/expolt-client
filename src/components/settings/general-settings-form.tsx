@@ -58,7 +58,7 @@ export default function GeneralSettingsForm({
           name="idle_timeout"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Idle Timeout</FormLabel>
+              <FormLabel>Idle Timeout (in minutes)</FormLabel>
               <FormControl>
                 <Input
                   placeholder="Idle Timeout"

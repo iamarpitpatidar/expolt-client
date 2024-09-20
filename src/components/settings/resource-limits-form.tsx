@@ -23,21 +23,15 @@ import { Button } from '@components/ui/button'
 import toast from 'react-hot-toast'
 
 const settingsFormSchema = z.object({
-  default_vm_provider: z.enum([
-    'vultr',
-    'digital_ocean',
-    'aws',
-    'gcp',
-    'azure',
-  ]),
-  default_vm_plan: z.literal('vc2-2c-4gb'),
-  default_vm_region: z.literal('ewr'),
+  default_vm_provider: z.enum(['digital_ocean']),
+  default_vm_plan: z.literal('s-2vcpu-4gb-120gb-intel'),
+  default_vm_region: z.literal('blr1'),
 })
 type settingsFormValues = z.infer<typeof settingsFormSchema>
 const defaultValues: Partial<settingsFormValues> = {
-  default_vm_provider: 'vultr',
-  default_vm_plan: 'vc2-2c-4gb',
-  default_vm_region: 'ewr',
+  default_vm_provider: 'digital_ocean',
+  default_vm_plan: 's-2vcpu-4gb-120gb-intel',
+  default_vm_region: 'blr1',
 }
 
 export default function ResourceLimitsForm() {
@@ -67,11 +61,7 @@ export default function ResourceLimitsForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="vultr">Vultr</SelectItem>
                   <SelectItem value="digital_ocean">Digital Ocean</SelectItem>
-                  <SelectItem value="aws">AWS</SelectItem>
-                  <SelectItem value="gcp">GCP</SelectItem>
-                  <SelectItem value="azure">Azure</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>Default VM Provider</FormDescription>
@@ -88,11 +78,13 @@ export default function ResourceLimitsForm() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Select a verified plan to display" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="vc2-2c-4gb">VC2-2C-4GB</SelectItem>
+                  <SelectItem value="s-2vcpu-4gb-120gb-intel">
+                    Intel 2vCPU-4GB-120GB
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>Default VM Plan</FormDescription>
@@ -109,11 +101,11 @@ export default function ResourceLimitsForm() {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Select a verified region to display" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="ewr">EWR</SelectItem>
+                  <SelectItem value="blr1">Bangalore (BLR)</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>Default VM Region</FormDescription>

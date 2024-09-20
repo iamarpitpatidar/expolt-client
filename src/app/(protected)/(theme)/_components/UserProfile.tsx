@@ -38,7 +38,7 @@ export default function UserProfile() {
           {user?.role === 'admin' && (
             <Fragment>
               <DropdownMenuGroup>
-                <Link href="/dashboard">
+                <Link href="/">
                   <DropdownMenuItem className="cursor-pointer">
                     <Dock className="h-4 w-4 mr-2" />
                     <span>Dashboard</span>

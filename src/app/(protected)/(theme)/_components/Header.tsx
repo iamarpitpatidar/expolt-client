@@ -16,7 +16,7 @@ export default async function DashboardHeader() {
     <SessionProvider session={session} refetchOnWindowFocus={false}>
       <header className="grid grid-cols-3 py-4 px-6 border-b">
         <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 divide-x col-span-2">
-          <Link href="/dashboard">
+          <Link href="/">
             <div className="font-bold tracking-wide text-lg flex items-center">
               <Image
                 src={Logo}
@@ -33,7 +33,7 @@ export default async function DashboardHeader() {
             <Link href="https://expolt.com" target="_blank">
               <Earth className="h-6 w-6 text-gray-600" />
             </Link>
-            <Link href="/dashboard">
+            <Link href="/">
               <LayoutGrid className="h-6 w-6 text-gray-600" />
             </Link>
           </div>

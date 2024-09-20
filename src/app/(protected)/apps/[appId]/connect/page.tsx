@@ -44,7 +44,7 @@ export default function ConnectApp({ params }: { params: { appId: string } }) {
   return (
     <div className="h-screen bg-[#0e1116]">
       <h1 className="text-2xl text-gray-200 text-center py-12">
-        Setting up your environment
+        Setting up your Virtual Machine
       </h1>
       <div className="flex flex-col justify-center items-center">
         <div className="w-2/6 bg-[#24292e] rounded-md px-6 py-8 min-h-72">

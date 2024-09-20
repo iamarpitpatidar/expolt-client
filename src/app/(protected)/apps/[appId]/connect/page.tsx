@@ -9,6 +9,7 @@ export default function ConnectApp({ params }: { params: { appId: string } }) {
   const [progress, setProgress] = useState<string[]>(['connecting'])
   const lang: Record<string, string> = {
     connecting: 'Connecting',
+    pending: 'Fetching server config',
     provisioning: 'Provisioning your system',
     failed: 'Connection failed try again later.',
     running: 'Redirecting, please wait',

@@ -65,7 +65,7 @@
     "eslint-config-next": "14.2.13",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-compat": "^4.2.0",
+    "eslint-plugin-compat": "^6.0.1",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-sonarjs": "^0.24.0",
     "husky": "^9.1.5",

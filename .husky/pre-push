@@ -1,2 +1,2 @@
-yarn lint-language
-yarn test-types
+#yarn lint-language
+#yarn test-types

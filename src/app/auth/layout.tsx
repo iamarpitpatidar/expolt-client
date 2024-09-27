@@ -12,7 +12,7 @@ export default async function AuthLayout({
   return (
     <div className="auth-wrapper min-h-screen">
       <div className="flex h-screen flex-col items-center justify-center">
-        <div className="w-full max-w-xl px-20 py-16 bg-white rounded-sm shadow-xl text-center">
+        <div className="w-full max-w-xl 2xl:max-w-2xl px-4 sm:px-20 py-8 sm:py-16 bg-white rounded-sm shadow-xl text-center">
           <Image
             src={Logo}
             alt={`${process.env.NEXT_PUBLIC_APP_NAME} Logo`}

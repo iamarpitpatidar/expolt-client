@@ -25,7 +25,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
       )}
       {...props}
     >
-      {items.map((item) => (
+      {items.map((item, index) => (
         <Link
           key={item.href}
           href={item.href}
@@ -33,8 +33,9 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
             buttonVariants({ variant: 'ghost' }),
             pathname === item.href
               ? 'bg-muted hover:bg-muted'
-              : 'hover:bg-transparent hover:underline',
+              : 'hover:bg-muted',
             'justify-start',
+            index > 1 ? 'hidden' : 'visible',
           )}
         >
           {item.title}

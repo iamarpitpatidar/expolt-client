@@ -2,61 +2,94 @@
 
 import { getVMDetails } from '@lib/actions'
 import { useState, useEffect } from 'react'
+import * as Progress from '@radix-ui/react-progress'
 
 import './style.scss'
 
 export default function ConnectApp({ params }: { params: { appId: string } }) {
-  const [progress, setProgress] = useState<string[]>(['connecting'])
+  const [status, setStatus] = useState('connecting')
+  const [progress, setProgress] = useState<number>(0)
   const lang: Record<string, string> = {
     connecting: 'Connecting',
     pending: 'Fetching server config',
     provisioning: 'Provisioning your system',
-    failed: 'Connection failed try again later.',
+    failed: 'Connection failed. Try again later.',
     running: 'Redirecting, please wait',
   }
 
   useEffect(() => {
+    const totalTime = 600
+    const intervalTime = 5
+    const stepIncrement = (100 / totalTime) * intervalTime
+
+    let elapsedTime = 0
+
+    const updateProgress = (currentState: string) => {
+      switch (currentState) {
+        case 'pending':
+          if (progress < 25) setProgress(25)
+          break
+        case 'provisioning':
+          if (progress < 50) setProgress(50)
+          break
+        case 'running':
+          if (progress < 75) setProgress(75)
+          return true
+        default:
+          break
+      }
+      return false
+    }
+
     const interval = setInterval(async () => {
-      const { response, error } = await getVMDetails(params.appId)
-      if (!response || error) {
-        setProgress([...progress, 'failed'])
+      elapsedTime += intervalTime
+
+      setProgress((prev) => Math.min(prev + stepIncrement, 100))
+      if (elapsedTime >= totalTime && status !== 'running') {
+        setStatus('failed')
+        clearInterval(interval)
         return
       }
 
-      if (
-        response &&
-        response.data?.state &&
-        !progress.includes(response.data.state)
-      ) {
-        setProgress([...progress, response.data.state])
-        if (response.data.state === 'running') {
+      const { response, error } = await getVMDetails(params.appId)
+      if (!response || error) {
+        setStatus('failed')
+        clearInterval(interval)
+        return
+      }
+
+      // Update status and progress based on the response state
+      if (response.data?.state && status !== response.data.state) {
+        setStatus(response.data.state)
+        const isRunning = updateProgress(response.data.state)
+
+        if (isRunning) {
           clearInterval(interval)
+          const timeout = status === 'provisioning' ? 120000 : 10000
           setTimeout(() => {
             window.location.href = response.data?.redirectTo || ''
-          }, 2000)
+          }, timeout)
         }
       }
-    }, 5000)
+    }, intervalTime * 1000)
 
     return () => clearInterval(interval)
-  }, [params.appId, progress])
+  }, [params.appId, progress, status])
 
   return (
-    <div className="h-screen bg-[#0e1116]">
-      <h1 className="text-2xl text-gray-200 text-center py-12">
-        Setting up your Virtual Machine
-      </h1>
-      <div className="flex flex-col justify-center items-center">
-        <div className="w-2/6 bg-[#24292e] rounded-md px-6 py-8 min-h-72">
-          {progress.map((step, index) => (
-            <div
-              key={index}
-              className="flex items-center text-gray-300 text-sm mt-1"
-            >
-              {lang[step]}
-            </div>
-          ))}
-          <div className="loader text-gray-200"></div>
+    <div className="min-h-screen flex items-center justify-center bg-[#1a1c1e]">
+      <div className="w-full max-w-md p-8 bg-[#25282c] rounded-lg shadow-2xl">
+        <h1 className="text-2xl text-white mb-14 text-center">
+          Setting up your Virtual Machine
+        </h1>
+        <div className="bg-[#2e3238] p-6 rounded-md">
+          <p className="text-[#a0a4a8] mb-4 animate-pulse">{lang[status]}</p>
+          <Progress.Root className="relative h-2 w-full overflow-hidden rounded-full bg-[#464649]">
+            <Progress.Indicator
+              className="h-full flex-1 bg-[#18181b] transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${100 - (progress || 0)}%)` }}
+            />
+          </Progress.Root>
         </div>
       </div>
     </div>

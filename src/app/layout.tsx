@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import { Poppins } from 'next/font/google'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import './globals.css'
 
@@ -18,10 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
-        {children}
-        <SpeedInsights />
-      </body>
+      <body className={poppins.className}>{children}</body>
     </html>
   )
 }

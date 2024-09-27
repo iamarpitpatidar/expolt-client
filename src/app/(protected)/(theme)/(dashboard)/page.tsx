@@ -10,7 +10,7 @@ import '@assets/css/dash.scss'
 
 export default async function Dashboard() {
   return (
-    <div className="bg-gray-200 p-6">
+    <div className="bg-gray-200 pt-6 px-6">
       <div className="grid gap-2 lg:grid-cols-2">
         <div>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -21,7 +21,7 @@ export default async function Dashboard() {
             </div>
             <WeatherCard />
             <Suspense fallback={<Skeleton />}></Suspense>
-            <Card className="p-8 flex justify-center items-center text-5xl text-gray-500">
+            <Card className="p-8 flex justify-center items-center text-2xl md:text-5xl text-gray-500">
               <DateTimeCard />
             </Card>
           </div>

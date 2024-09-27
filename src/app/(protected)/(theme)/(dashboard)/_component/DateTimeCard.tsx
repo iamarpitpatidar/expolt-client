@@ -16,7 +16,7 @@ export default function DateTimeCard() {
 
   return (
     <Fragment>
-      <ClockIcon className="h-14 w-14 mr-2" />
+      <ClockIcon className="h-8 w-8 md:h-14 md:w-14 mr-2" />
       {currentTime}
     </Fragment>
   )

@@ -1,5 +1,5 @@
 .dashboard-hero {
-  height: 365px;
+  height: 60vh;
 }
 .overlay::after {
   content: '';
@@ -12,6 +12,6 @@
 }
 @media only screen and (min-width: 1024px) {
   .apps-card {
-    height: calc(100vh - 120px)
+    height: calc(100vh - 90px)
   }
 }

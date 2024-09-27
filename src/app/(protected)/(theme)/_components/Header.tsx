@@ -29,7 +29,7 @@ export default async function DashboardHeader() {
               </span>
             </div>
           </Link>
-          <div className="flex justify-around items-center">
+          <div className="justify-around items-center hidden md:flex">
             <Link href="https://expolt.com" target="_blank">
               <Earth className="h-6 w-6 text-gray-600" />
             </Link>
@@ -41,7 +41,7 @@ export default async function DashboardHeader() {
         </div>
         <div className="flex items-center justify-end">
           <UserProfile />
-          <div>
+          <div className="hidden md:block">
             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
           </div>
         </div>

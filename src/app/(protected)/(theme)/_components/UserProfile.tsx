@@ -24,7 +24,7 @@ export default function UserProfile() {
   return (
     <Fragment>
       <DropdownMenu>
-        <DropdownMenuTrigger className="outline-none mr-4">
+        <DropdownMenuTrigger className="outline-none md:mr-4">
           <Avatar className="h-10 w-10">
             <AvatarImage src="" />
             <AvatarFallback className="bg-sky-500">
